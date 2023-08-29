@@ -1,80 +1,69 @@
 #include <iostream>
 #include <string>
+#include "Node.h"
+#include "Treap.h"
 
 using namespace std;
 
-class Treap {
-    private:
 
-    class Node {
-        public:
-            int data;
-            Node* child;
-            int priority;
-    };
+Treap::Treap() {
+    root = nullptr;
+}
 
-    Node* root;
+void Treap::insert(int data) {
+    Node* newNode = new Node();
+    newNode->data = data;
+    newNode->priority = rand();
+    newNode->child = nullptr;
 
-    public:
-    Treap() {
-        root = nullptr;
-    }
-
-    void insert(int data) {
-        Node* newNode = new Node();
-        newNode->data = data;
-        newNode->priority = rand();
-        newNode->child = nullptr;
-
-        if (root == nullptr) {
-            root = newNode;
-        } 
+    if (root == nullptr) {
+        root = newNode;
+    } 
+    
+    else {
+        Node* temp = root;
+        while (temp->child != nullptr) {
+            temp = temp->child;
+        }
         
-        else {
-            Node* temp = root;
-            while (temp->child != nullptr) {
-                temp = temp->child;
-            }
-            
-            temp->child = newNode;
-        }
+        temp->child = newNode;
     }
+}
 
-    Node* search(int data) {
-        Node* temp = root;
-        while (temp != nullptr) {
-            if (temp->data == data) {
-                return temp;
-            }
-            temp = temp->child;
+Node* Treap::search(int data) {
+    Node* temp = root;
+    while (temp != nullptr) {
+        if (temp->data == data) {
+            return temp;
         }
-        return nullptr;
+        temp = temp->child;
     }
+    return nullptr;
+}
 
-    Node* pop(int data) {
-        Node* temp = root;
-        Node* prev = nullptr;
-        while (temp != nullptr) {
-            if (temp->data == data) {
-                if (prev == nullptr) {
-                    root = temp->child;
-                } else {
-                    prev->child = temp->child;
-                }
-                return temp;
+Node* Treap::pop(int data) {
+    Node* temp = root;
+    Node* prev = nullptr;
+    while (temp != nullptr) {
+        if (temp->data == data) {
+            if (prev == nullptr) {
+                root = temp->child;
+            } else {
+                prev->child = temp->child;
             }
-            prev = temp;
-            temp = temp->child;
+            return temp;
         }
-        return nullptr;
+        prev = temp;
+        temp = temp->child;
     }
+    return nullptr;
+}
 
-    void print() {
-        Node* temp = root;
-        while (temp != nullptr) {
-            cout << temp->data << " ";
-            temp = temp->child;
-        }
-        cout << endl;
+void Treap::print() {
+    Node* temp = root;
+    while (temp != nullptr) {
+        cout << temp->data << " ";
+        temp = temp->child;
     }
-};
+    cout << endl;
+}

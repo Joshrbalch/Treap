@@ -1,6 +1,6 @@
 #include <iostream>
 #include <string>
-#include "Treap.cpp"
+#include "Treap.h"
 
 using namespace std;
 
