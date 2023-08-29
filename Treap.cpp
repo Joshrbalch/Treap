@@ -1,3 +1,5 @@
+// Created by Josh Balch at the University of Alabama
+
 #include <iostream>
 #include <string>
 #include "Node.h"
